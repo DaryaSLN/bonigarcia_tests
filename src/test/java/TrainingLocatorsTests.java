@@ -102,9 +102,8 @@ public class TrainingLocatorsTests {
         Select select = new Select(formSelect);
         select.selectByValue("2");
 
-        driver.findElement(By.cssSelector(".form-select")).click();
         driver.findElement(By.cssSelector("input[name='my-datalist']")).sendKeys("Seattle");
-        List<String> actualatalistOptions = driver.findElements(By.xpath("//datalist/option"))
+        List<String> actualDatalistOptions = driver.findElements(By.xpath("//datalist/option"))
                 .stream().map(option -> option.getDomAttribute("value")).toList();
 
         URL resource = HomePageTests.class.getClassLoader().getResource("images/2016516223709_2.jpg");
@@ -123,7 +122,7 @@ public class TrainingLocatorsTests {
 
         assertAll(
                 () -> assertEquals(expectedSelectOptions, actualSelectOptions),
-                () -> assertEquals(expectedDatalistOptions, actualatalistOptions)
+                () -> assertEquals(expectedDatalistOptions, actualDatalistOptions)
         );
     }
 
