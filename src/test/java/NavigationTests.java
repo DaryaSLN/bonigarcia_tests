@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,29 +13,27 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class NavigationTests {
+class NavigationTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
-    static String navigationLink = "//h5[text()='Chapter 3. WebDriver Fundamentals']/../a[contains(@href,'navigation1')]";
-
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.xpath(navigationLink)).click();
+        driver.findElement(By.xpath(Constants.NAVIGATION_PAGE_PATH)).click();
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
 
     @Test
-    public void previousButtonTest() {
+    void previousButtonTest() {
         WebElement previousButton = driver.findElement(By.xpath("//a[text()='Previous']/.."));
         WebElement firstPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='1']/.."));
 
@@ -56,7 +57,7 @@ public class NavigationTests {
     }
 
     @Test
-    public void nextButtonTest() {
+    void nextButtonTest() {
         WebElement lastPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
         lastPageButton.click();
 

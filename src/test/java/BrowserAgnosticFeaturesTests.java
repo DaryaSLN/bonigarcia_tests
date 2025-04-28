@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,28 +26,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BrowserAgnosticFeaturesTests {
+class BrowserAgnosticFeaturesTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
+    WebStorage webStorage;
+    JavascriptExecutor js;
+    WebDriverWait wait5;
+    WebDriverWait wait20;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
+
+        webStorage = (WebStorage) driver;
+        js = (JavascriptExecutor) driver;
+
+        wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait20 = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         driver.getPageSource();
         driver.quit();
     }
 
     @Test
-    public void infiniteScrollTest() {
-        driver.findElement(By.xpath("//a[@href='infinite-scroll.html']")).click();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    void infiniteScrollTest() {
+        driver.findElement(By.xpath(Constants.INFINITE_SCROLL_PAGE_PATH)).click();
 
         By pLocator;
         int initParagraphsNumber = 0;
@@ -53,14 +64,14 @@ public class BrowserAgnosticFeaturesTests {
 
         while (initParagraphsNumber < targetParagraphsNumber) {
             pLocator = By.tagName("p");
-            List<WebElement> paragraphs = wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(pLocator, 0));
+            List<WebElement> paragraphs = wait20.until(ExpectedConditions.numberOfElementsToBeMoreThan(pLocator, 0));
             initParagraphsNumber = paragraphs.size();
 
             lastParagraph = driver.findElement(By.xpath(String.format("//p[%d]", initParagraphsNumber)));
             String script = "arguments[0].scrollIntoView();";
             js.executeScript(script, lastParagraph);
 
-            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(pLocator, initParagraphsNumber));
+            wait20.until(ExpectedConditions.numberOfElementsToBeMoreThan(pLocator, initParagraphsNumber));
         }
 
         String targetText = driver.findElement(By.xpath(String.format("//p[%d]", targetParagraphsNumber))).getText();
@@ -69,8 +80,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void shadowDomTest() {
-        driver.findElement(By.xpath("//a[@href='shadow-dom.html']")).click();
+    void shadowDomTest() {
+        driver.findElement(By.xpath(Constants.SHADOW_DOM_PAGE_PATH)).click();
 
         WebElement content = driver.findElement(By.id("content"));
         SearchContext shadowRoot = content.getShadowRoot();
@@ -80,8 +91,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void cookieTest() {
-        driver.findElement(By.xpath("//a[@href='cookies.html']")).click();
+    void cookieTest() {
+        driver.findElement(By.xpath(Constants.COOKIES_PAGE_PATH)).click();
 
         WebDriver.Options options = driver.manage();
         Set<Cookie> cookies = options.getCookies();
@@ -118,9 +129,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void iFrameTest() {
-        driver.findElement(By.xpath("//a[@href='iframes.html']")).click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+    void iFrameTest() {
+        driver.findElement(By.xpath(Constants.IFRAMES_PAGE_PATH)).click();
 
         WebElement iFrameElement = driver.findElement(By.id("my-iframe"));
         driver.switchTo().frame(iFrameElement);
@@ -130,13 +140,12 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void launchAlertDialogBoxTest() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void launchAlertDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         WebElement launchAlert = driver.findElement(By.id("my-alert"));
         launchAlert.click();
-        wait.until(ExpectedConditions.alertIsPresent());
+        wait5.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         alert.accept();
@@ -148,8 +157,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void acceptLaunchConfirmDialogBoxTest() {
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void acceptLaunchConfirmDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-confirm")).click();
         driver.switchTo().alert().accept();
@@ -159,8 +168,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void cancelLaunchConfirmDialogBoxTest() {
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void cancelLaunchConfirmDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-confirm")).click();
         driver.switchTo().alert().dismiss();
@@ -170,8 +179,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void acceptLaunchPromptDialogBoxTest() {
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void acceptLaunchPromptDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-prompt")).click();
         driver.switchTo().alert().sendKeys("Test");
@@ -181,8 +190,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void cancelLaunchPromptDialogBoxTest() {
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void cancelLaunchPromptDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-prompt")).click();
         driver.switchTo().alert().sendKeys("Test");
@@ -192,35 +201,32 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void saveLaunchModalDialogBoxTest() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void saveLaunchModalDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-modal")).click();
         WebElement saveButton = driver.findElement(By.xpath("//button[normalize-space()='Save changes']"));
-        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        wait5.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
 
         assertThat(driver.findElement(By.id("modal-text")).getText()).isEqualTo("You chose: Save changes");
     }
 
     @Test
-    public void closeLaunchModalDialogBoxTest() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.findElement(By.xpath("//a[@href='dialog-boxes.html']")).click();
+    void closeLaunchModalDialogBoxTest() {
+        driver.findElement(By.xpath(Constants.DIALOG_BOXES_PAGE_PATH)).click();
 
         driver.findElement(By.id("my-modal")).click();
         WebElement closeButton = driver.findElement(By.xpath("//button[text()='Close']"));
-        wait.until(ExpectedConditions.elementToBeClickable(closeButton));
+        wait5.until(ExpectedConditions.elementToBeClickable(closeButton));
         closeButton.click();
 
         assertThat(driver.findElement(By.id("modal-text")).getText()).isEqualTo("You chose: Close");
     }
 
     @Test
-    public void localStorageTest() {
-        driver.findElement(By.xpath("//a[@href='web-storage.html']")).click();
-        WebStorage webStorage = (WebStorage) driver;
+    void localStorageTest() {
+        driver.findElement(By.xpath(Constants.WEB_STORAGE_PAGE_PATH)).click();
 
         LocalStorage localStorage = webStorage.getLocalStorage();
         driver.findElement(By.id("display-session")).click();
@@ -233,9 +239,8 @@ public class BrowserAgnosticFeaturesTests {
     }
 
     @Test
-    public void storageTest() {
-        driver.findElement(By.xpath("//a[@href='web-storage.html']")).click();
-        WebStorage webStorage = (WebStorage) driver;
+    void storageTest() {
+        driver.findElement(By.xpath(Constants.WEB_STORAGE_PAGE_PATH)).click();
 
         SessionStorage sessionStorage = webStorage.getSessionStorage();
         sessionStorage.setItem("new element", "new value");

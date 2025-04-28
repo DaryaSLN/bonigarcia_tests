@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,29 +14,28 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DropdownMenuTests {
+class DropdownMenuTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
-    static String dropdownMenuLink = "//h5[text()='Chapter 3. WebDriver Fundamentals']/../a[contains(@href,'dropdown-menu')]";
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
     final List<String> expectedDropdownMenuOptions = List.of("Action", "Another action", "Something else here", "Separated link");
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.xpath(dropdownMenuLink)).click();
+        driver.findElement(By.xpath(Constants.DROPDOWN_MENU_PAGE_PATH)).click();
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
 
     @Test
-    public void leftClickTest() {
+    void leftClickTest() {
         driver.findElement(By.id("my-dropdown-1")).click();
 
         List<String> actualDropdownMenuOptions = driver.findElements(By.xpath("//ul[@class='dropdown-menu show']/li"))
@@ -44,7 +46,7 @@ public class DropdownMenuTests {
     }
 
     @Test
-    public void rightClickTest() {
+    void rightClickTest() {
         WebElement rightClickDropdown = driver.findElement(By.id("my-dropdown-2"));
         new Actions(driver)
                 .contextClick(rightClickDropdown)
@@ -58,7 +60,7 @@ public class DropdownMenuTests {
     }
 
     @Test
-    public void doubleClickTest() {
+    void doubleClickTest() {
         WebElement doubleClickDropdown = driver.findElement(By.id("my-dropdown-3"));
         new Actions(driver)
                 .doubleClick(doubleClickDropdown)

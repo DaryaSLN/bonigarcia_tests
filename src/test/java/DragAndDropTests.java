@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,29 +16,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class DragAndDropTests {
+class DragAndDropTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
-    static String dragAndDropLink = "//h5[text()='Chapter 3. WebDriver Fundamentals']/../a[contains(@href,'drag-and-drop')]";
-
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.xpath(dragAndDropLink)).click();
+        driver.findElement(By.xpath(Constants.DRAG_AND_DROP_PAGE_PATH)).click();
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
 
     @Test
-    public void dragAndDropTest() {
+    void dragAndDropTest() {
         WebElement draggable = driver.findElement(By.id("draggable"));
         WebElement target = driver.findElement(By.id("target"));
 

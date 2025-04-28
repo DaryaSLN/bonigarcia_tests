@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,19 +17,21 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class LoadingImagesTests {
+class LoadingImagesTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
+    WebDriverWait wait10;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
+        wait10 = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         driver.getPageSource();
         driver.quit();
     }
@@ -37,11 +42,10 @@ public class LoadingImagesTests {
 
     @ParameterizedTest
     @MethodSource("testData")
-    public void loadingImagesTest(String imageName) {
-        driver.findElement(By.xpath("//a[@href='loading-images.html']")).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    void loadingImagesTest(String imageName) {
+        driver.findElement(By.xpath(Constants.LOADING_IMAGES_PAGE_PATH)).click();
 
-        WebElement pageImage = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(imageName)));
+        WebElement pageImage = wait10.until(ExpectedConditions.presenceOfElementLocated(By.id(imageName)));
 
         assertThat(pageImage.getDomAttribute("src")).containsIgnoringCase(imageName);
     }

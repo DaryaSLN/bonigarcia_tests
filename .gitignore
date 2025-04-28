@@ -37,3 +37,12 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Properties ###
+# Ignore all .properties files in resources
+src/test/resources/*.properties
+src/main/resources/*.properties
+
+# Exception: allow to load the template (if necessary)
+!src/test/resources/template.properties
+!src/main/resources/template.properties

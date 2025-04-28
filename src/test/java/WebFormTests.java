@@ -1,3 +1,6 @@
+import config.TestPropertiesConfig;
+import constants.Constants;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +13,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WebFormTests {
+class WebFormTests {
     WebDriver driver;
-    private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
-    static String webFormLink = "//h5[text()='Chapter 3. WebDriver Fundamentals']/../a[contains(@href,'web-form')]";
+    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
+    JavascriptExecutor js;
+    WebDriverWait wait1;
     String text = "Nostrud enim officia veniam aute. Occaecat consectetur commodo deserunt consectetur anim excepteur " +
             "ad qui mollit Lorem mollit ipsum. Et excepteur voluptate pariatur minim dolore sunt adipisicing magna et " +
             "ea reprehenderit sint. Nulla qui sint occaecat deserunt minim nulla enim consectetur voluptate ad fugiat " +
@@ -41,22 +48,26 @@ public class WebFormTests {
             "occaecat eu commodo ut et reprehenderit do.";
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         driver = new ChromeDriver();
-        driver.get(BASE_URL);
+        driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.xpath(webFormLink)).click();
+        driver.findElement(By.xpath(Constants.WEB_FORM_PAGE_PATH)).click();
+
+        js = (JavascriptExecutor) driver;
+
+        wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
 
     @Test
-    public void textInputTest() {
+    void textInputTest() {
         String inputText = "Lorem ipsum 123#$().;";
 
         WebElement textInputField = driver.findElement(By.id("my-text-id"));
@@ -67,7 +78,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void editTextInputTest() {
+    void editTextInputTest() {
         String initialText = "Lorem ipsum 123#$().;";
         String editedText = "Edited Text";
 
@@ -81,7 +92,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void passwordInputTest() {
+    void passwordInputTest() {
         String inputPassword = "Lorem123#$().;";
 
         WebElement textInputField = driver.findElement(By.xpath("//input[@type='password']"));
@@ -92,12 +103,11 @@ public class WebFormTests {
     }
 
     @Test
-    public void textareaInputTest() {
+    void textareaInputTest() {
         WebElement textInputField = driver.findElement(By.name("my-textarea"));
         textInputField.sendKeys(text);
 
         String initialFieldHeight = textInputField.getCssValue("height");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].style.height = '300px';", textInputField);
 
         String actualFieldHeight = textInputField.getCssValue("height");
@@ -111,7 +121,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void disabledInputTest() {
+    void disabledInputTest() {
         WebElement disabledInputField = driver.findElement(By.cssSelector("[name='my-disabled']"));
 
         assertAll(
@@ -122,7 +132,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void readOnlyTest() {
+    void readOnlyTest() {
         WebElement readonlyInputField = driver.findElement(By.name("my-readonly"));
 
         assertAll(
@@ -132,7 +142,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void optionsListTest() {
+    void optionsListTest() {
         List<String> expectedSelectOptions = new ArrayList<>(Arrays.asList("One", "Two", "Three"));
 
         List<String> actualSelectOptions = driver.findElements(By.xpath("//select[@name='my-select']/option/following-sibling::option"))
@@ -142,7 +152,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void dropdownDefaultOptionTest() {
+    void dropdownDefaultOptionTest() {
         String expectedSelectedOption = "Open this select menu";
 
         WebElement formSelect = driver.findElement(By.cssSelector(".form-select"));
@@ -153,7 +163,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void dropdownSelectTest() {
+    void dropdownSelectTest() {
         String expectedSelectedOption = "Three";
 
         WebElement formSelect = driver.findElement(By.cssSelector(".form-select"));
@@ -165,7 +175,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void dropdownDatalistTest() {
+    void dropdownDatalistTest() {
         List<String> expectedDatalistOptions = new ArrayList<>(Arrays.asList("San Francisco", "New York", "Seattle", "Los Angeles", "Chicago"));
 
         List<String> actualDatalistOptions = driver.findElements(By.xpath("//datalist/option"))
@@ -175,7 +185,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void fileInputTest() throws URISyntaxException, InterruptedException {
+    void fileInputTest() throws URISyntaxException {
         String fileName = "2016516223709_2.jpg";
 
         URL resource = HomePageTests.class.getClassLoader().getResource("images/" + fileName);
@@ -189,20 +199,21 @@ public class WebFormTests {
         boolean isFileDownloaded = fileInput.getAttribute("value").contains(fileName);
 
         driver.findElement(By.xpath("//button[text()='Submit']")).click();
-        Thread.sleep(1000);
+
+        String formResult = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/p")))
+                .getText();
         String formInfo = driver.findElement(By.xpath("//div[@class='row']/div/h1")).getText();
-        String formResult = driver.findElement(By.xpath("//div/p")).getText();
 
         assertAll(
                 () -> assertTrue(isFileDownloaded),
                 () -> assertThat(driver.getCurrentUrl()).contains(fileName),
-                () -> assertEquals("Form submitted", formInfo),
-                () -> assertEquals("Received!", formResult)
+                () -> assertEquals("Received!", formResult),
+                () -> assertEquals("Form submitted", formInfo)
         );
     }
 
     @Test
-    public void checkboxTest() {
+    void checkboxTest() {
         WebElement checkedCheckbox = driver.findElement(By.cssSelector("#my-check-1"));
         checkedCheckbox.click();
         WebElement defaultCheckbox = driver.findElement(By.cssSelector("#my-check-2"));
@@ -215,7 +226,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void selectorsTest() {
+    void selectorsTest() {
         WebElement checkedRadio = driver.findElement(By.cssSelector("#my-radio-1"));
         WebElement defaultRadio = driver.findElement(By.cssSelector("#my-radio-2"));
 
@@ -231,9 +242,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void ColorPickerTest() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
+    void ColorPickerTest() {
         WebElement colorPicker = driver.findElement(By.name("my-colors"));
         String initColor = colorPicker.getDomAttribute("value");
 
@@ -250,7 +259,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void datePickerTest() {
+    void datePickerTest() {
         String expectedDate = "04/01/2025";
 
         WebElement datePicker = driver.findElement(By.name("my-date"));
@@ -260,7 +269,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void rangePickerTest() {
+    void rangePickerTest() {
         WebElement exampleRange = driver.findElement(By.xpath("//input[@type='range']"));
         String expectedRangePickerValue = String.valueOf(Integer.parseInt(exampleRange.getDomAttribute("value")) + 2);
 
@@ -273,7 +282,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void movingRangePickerTest() {
+    void movingRangePickerTest() {
         int incrementValue = 3;
         WebElement exampleRange = driver.findElement(By.xpath("//input[@type='range']"));
         String expectedRangePickerValue = String.valueOf(Integer.parseInt(exampleRange.getDomAttribute("value")) + incrementValue);
@@ -292,7 +301,7 @@ public class WebFormTests {
     }
 
     @Test
-    public void returnToIndexLinkTest() {
+    void returnToIndexLinkTest() {
         String expectedHeader = "Hands-On Selenium WebDriver with Java";
 
         driver.findElement(By.partialLinkText("Return")).click();
@@ -302,12 +311,13 @@ public class WebFormTests {
     }
 
     @Test
-    public void BoniGarciaLinkTest() throws InterruptedException {
+    void BoniGarciaLinkTest() {
         String expectedHeader = "About Me";
 
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//a[contains(text(),'Boni')]")).click();
+        WebElement boniLink = driver.findElement(By.xpath("//a[contains(text(),'Boni')]"));
+        js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", boniLink);
+        wait1.until(ExpectedConditions.elementToBeClickable(boniLink));
+        js.executeScript("arguments[0].click();", boniLink);
 
         String actualPageHeader = driver.findElement(By.cssSelector("h1")).getText();
 
