@@ -1,6 +1,7 @@
 package tests;
 
 import constants.Constants;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import pageObjects.DropdownMenuPage;
 import pageObjects.HomePage;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Feature("POM")
 class DropdownMenuTests extends BaseTest {
     final List<String> expectedDropdownMenuOptions = List.of("Action", "Another action", "Something else here", "Separated link");
 

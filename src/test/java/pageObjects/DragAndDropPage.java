@@ -1,5 +1,6 @@
 package pageObjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -14,14 +15,17 @@ public class DragAndDropPage extends BasePage {
         super(driver);
     }
 
+    @Step("Get location of the draggable element")
     public Point getDraggableLocation() {
         return draggable.getLocation();
     }
 
+    @Step("Get location of the target element")
     public Point getTargetLocation() {
         return target.getLocation();
     }
 
+    @Step("Drag and drop a draggable element")
     public DragAndDropPage dragAndDropElement() {
         new Actions(getDriver())
                 .dragAndDrop(draggable, target)

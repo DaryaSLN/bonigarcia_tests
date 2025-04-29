@@ -1,6 +1,7 @@
 package tests;
 
 import constants.Constants;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Point;
 import pageObjects.DragAndDropPage;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Feature("POM")
 class DragAndDropTests extends BaseTest {
     @Test
     void dragAndDropTest() {

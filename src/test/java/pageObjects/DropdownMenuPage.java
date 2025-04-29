@@ -1,5 +1,6 @@
 package pageObjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,11 +20,13 @@ public class DropdownMenuPage extends BasePage {
         super(driver);
     }
 
+    @Step("Open the left-click dropdown")
     public DropdownMenuPage openLeftClickDropdown() {
         leftClickDropDownMenu.click();
         return this;
     }
 
+    @Step("Open the right-click dropdown")
     public DropdownMenuPage openRightClickDropdown() {
         new Actions(getDriver())
                 .contextClick(rightClickDropdownMenu)
@@ -31,6 +34,7 @@ public class DropdownMenuPage extends BasePage {
         return this;
     }
 
+    @Step("Open the double-click dropdown")
     public DropdownMenuPage openDoubleClickDropdown() {
         new Actions(getDriver())
                 .doubleClick(doubleClickDropdownMenu)
@@ -38,15 +42,18 @@ public class DropdownMenuPage extends BasePage {
         return this;
     }
 
+    @Step("Get the left-click dropdown menu options")
     public List<String> getLeftClickDropdownMenuOptions() {
         List<WebElement> options = getDriver().findElements(leftClickDropdownMenuOptions);
         return getOptionsList(options);
     }
 
+    @Step("Get the right-click dropdown menu options")
     public List<String> getRightClickDropdownMenuOptions() {
         return getOptionsList(rightClickDropdownMenuOptions);
     }
 
+    @Step("Get the double-click dropdown menu options")
     public List<String> getDoubleClickDropdownMenuOptions() {
         return getOptionsList(doubleClickDropdownMenuOptions);
     }

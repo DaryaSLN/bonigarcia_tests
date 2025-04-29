@@ -1,6 +1,7 @@
 package tests;
 
 import constants.Constants;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -40,6 +41,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Feature("POM")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HomePageTests extends BaseTest {
     Stream<Arguments> testData() {
