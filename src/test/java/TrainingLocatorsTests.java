@@ -117,7 +117,7 @@ class TrainingLocatorsTests {
         List<String> actualDatalistOptions = driver.findElements(By.xpath("//datalist/option"))
                 .stream().map(option -> option.getDomAttribute("value")).toList();
 
-        URL resource = HomePageTests.class.getClassLoader().getResource("images/2016516223709_2.jpg");
+        URL resource = TrainingLocatorsTests.class.getClassLoader().getResource("images/2016516223709_2.jpg");
         if (resource == null) {
             throw new IllegalArgumentException("File not found!");
         }
