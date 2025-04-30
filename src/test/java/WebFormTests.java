@@ -188,7 +188,7 @@ class WebFormTests {
     void fileInputTest() throws URISyntaxException {
         String fileName = "2016516223709_2.jpg";
 
-        URL resource = HomePageTests.class.getClassLoader().getResource("images/" + fileName);
+        URL resource = WebFormTests.class.getClassLoader().getResource("images/" + fileName);
         if (resource == null) {
             throw new IllegalArgumentException("File not found!");
         }
