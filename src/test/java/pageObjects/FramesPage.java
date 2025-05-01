@@ -1,12 +1,13 @@
 package pageObjects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class FramesPage extends BasePage {
-    WebElement frame = getDriver().findElement(By.cssSelector("frame[name='frame-header']"));
+    @FindBy(css = "frame[name='frame-header']")
+    private WebElement frame;
 
     public FramesPage(WebDriver driver) {
         super(driver);

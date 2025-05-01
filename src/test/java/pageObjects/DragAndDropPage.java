@@ -1,15 +1,18 @@
 package pageObjects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 public class DragAndDropPage extends BasePage {
-    WebElement draggable = getDriver().findElement(By.id("draggable"));
-    WebElement target = getDriver().findElement(By.id("target"));
+    @FindBy(id = "draggable")
+    private WebElement draggable;
+
+    @FindBy(id = "target")
+    private WebElement target;
 
     public DragAndDropPage(WebDriver driver) {
         super(driver);

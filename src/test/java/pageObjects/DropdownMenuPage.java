@@ -1,20 +1,31 @@
 package pageObjects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 public class DropdownMenuPage extends BasePage {
-    WebElement leftClickDropDownMenu = getDriver().findElement(By.id("my-dropdown-1"));
-    WebElement rightClickDropdownMenu = getDriver().findElement(By.id("my-dropdown-2"));
-    WebElement doubleClickDropdownMenu = getDriver().findElement(By.id("my-dropdown-3"));
-    By leftClickDropdownMenuOptions = By.xpath("//ul[@class='dropdown-menu show']/li/a[@class='dropdown-item']");
-    List<WebElement> rightClickDropdownMenuOptions = getDriver().findElements(By.xpath("//ul[@id='context-menu-2']/li"));
-    List<WebElement> doubleClickDropdownMenuOptions = getDriver().findElements(By.xpath("//ul[@id='context-menu-3']/li"));
+    @FindBy(id = "my-dropdown-1")
+    private WebElement leftClickDropDownMenu;
+
+    @FindBy(id = "my-dropdown-2")
+    private WebElement rightClickDropdownMenu;
+
+    @FindBy(id = "my-dropdown-3")
+    private WebElement doubleClickDropdownMenu;
+
+    @FindBy(xpath = "//ul[@class='dropdown-menu show']/li/a[@class='dropdown-item']")
+    private List<WebElement> leftClickDropdownMenuOptions;
+
+    @FindBy(xpath = "//ul[@id='context-menu-2']/li")
+    private List<WebElement> rightClickDropdownMenuOptions;
+
+    @FindBy(xpath = "//ul[@id='context-menu-3']/li")
+    private List<WebElement> doubleClickDropdownMenuOptions;
 
     public DropdownMenuPage(WebDriver driver) {
         super(driver);
@@ -44,8 +55,7 @@ public class DropdownMenuPage extends BasePage {
 
     @Step("Get the left-click dropdown menu options")
     public List<String> getLeftClickDropdownMenuOptions() {
-        List<WebElement> options = getDriver().findElements(leftClickDropdownMenuOptions);
-        return getOptionsList(options);
+        return getOptionsList(leftClickDropdownMenuOptions);
     }
 
     @Step("Get the right-click dropdown menu options")

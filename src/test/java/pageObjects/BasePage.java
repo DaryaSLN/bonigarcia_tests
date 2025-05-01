@@ -1,16 +1,20 @@
 package pageObjects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public abstract class BasePage {
     private final WebDriver driver;
 
-    By pageTitle = By.className("display-6");
+    @FindBy(className = "display-6")
+    private WebElement pageTitle;
 
     protected BasePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public WebDriver getDriver() {
@@ -24,6 +28,6 @@ public abstract class BasePage {
 
     @Step("Get page title")
     public String getPageTitle() {
-        return driver.findElement(pageTitle).getText();
+        return pageTitle.getText();
     }
 }
