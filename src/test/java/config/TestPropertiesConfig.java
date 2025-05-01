@@ -17,4 +17,10 @@ public interface TestPropertiesConfig extends Config {
 
     @Key("password")
     String getPassword();
+
+    @Key("browser")
+    String getBrowser();
+
+    @Key("remoteUrl")
+    String getRemoteUrl();
 }
