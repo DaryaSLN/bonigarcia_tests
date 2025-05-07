@@ -6,13 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class BasePage {
+public class GitHubPage {
     private final WebDriver driver;
 
-    @FindBy(className = "display-6")
-    private WebElement pageTitle;
+    @FindBy(linkText = "bonigarcia")
+    private WebElement gitHubNameLink;
 
-    protected BasePage(WebDriver driver) {
+    public GitHubPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -21,13 +21,8 @@ public abstract class BasePage {
         return driver;
     }
 
-    @Step("Get current URL")
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-
-    @Step("Get page title")
-    public String getPageTitle() {
-        return pageTitle.getText();
+    @Step("Get GitHub name")
+    public String getGitHubName() {
+        return gitHubNameLink.getText();
     }
 }

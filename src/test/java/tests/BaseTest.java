@@ -5,7 +5,8 @@ import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import static patterns.WebDriverFactory.createWebDriver;
 
 abstract class BaseTest {
     private WebDriver driver;
@@ -13,7 +14,7 @@ abstract class BaseTest {
 
     @BeforeEach
     void setup() {
-        driver = new ChromeDriver();
+        driver = createWebDriver(testConfig.getBrowser());
         driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
     }

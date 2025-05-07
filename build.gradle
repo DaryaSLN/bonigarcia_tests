@@ -18,6 +18,9 @@ dependencies {
     testImplementation 'commons-io:commons-io:2.16.0'
     testImplementation("org.aeonbits.owner:owner:1.0.12")
     testImplementation 'io.qameta.allure:allure-junit5:2.29.1'
+
+    testCompileOnly('org.projectlombok:lombok:1.18.38')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.38')
 }
 
 test {
