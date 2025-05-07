@@ -1,6 +1,8 @@
 package pageObjects;
 
+import io.qameta.allure.Param;
 import io.qameta.allure.Step;
+import io.qameta.allure.model.Parameter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,14 +24,14 @@ public class LoginFormPage extends BasePage {
         super(driver);
     }
 
-    @Step("Enter username")
+    @Step("Enter username '{username}'")
     public LoginFormPage enterUsername(String username) {
         usernameInputField.sendKeys(username);
         return this;
     }
 
     @Step("Enter password")
-    public LoginFormPage enterPassword(String password) {
+    public LoginFormPage enterPassword(@Param(name = "password", mode = Parameter.Mode.MASKED) String password) {
         passwordInputField.sendKeys(password);
         return this;
     }

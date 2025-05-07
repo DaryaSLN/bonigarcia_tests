@@ -1,5 +1,6 @@
 package components;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,22 +27,27 @@ public class HeaderComponent {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Get text of the header title")
     public String getHeaderTitleText() {
         return title.getText();
     }
 
+    @Step("Get text of the header description")
     public String getHeaderDescriptionText() {
         return description.getText();
     }
 
+    @Step("Get the logo width")
     public int getLogoWidth() {
         return logoImage.getSize().getWidth();
     }
 
+    @Step("Get the logo height")
     public int getLogoHeight() {
         return logoImage.getSize().getHeight();
     }
 
+    @Step("Click the logo link")
     public GitHubPage clickLogoLink() {
         logoLink.click();
         return new GitHubPage(driver);
