@@ -1,50 +1,29 @@
-import config.TestPropertiesConfig;
+package tests;
+
 import constants.Constants;
-import org.aeonbits.owner.ConfigFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class NavigationTests {
-    WebDriver driver;
-    TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
-
-    @BeforeEach
-    void setup() {
-        driver = new ChromeDriver();
-        driver.get(testConfig.getBaseUrl());
-        driver.manage().window().maximize();
-        driver.findElement(By.xpath(Constants.NAVIGATION_PAGE_PATH)).click();
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
+class NavigationTests extends BaseTest {
     @Test
     void previousButtonTest() {
-        WebElement previousButton = driver.findElement(By.xpath("//a[text()='Previous']/.."));
-        WebElement firstPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='1']/.."));
+        getDriver().findElement(By.xpath(Constants.NAVIGATION_PAGE_PATH)).click();
+        WebElement previousButton = getDriver().findElement(By.xpath("//a[text()='Previous']/.."));
+        WebElement firstPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='1']/.."));
 
         boolean isPreviousButtonDisabled = previousButton.getDomAttribute("class").contains("disabled");
         boolean isFirstPageButtonActive = firstPageButton.getDomAttribute("class").contains("active");
         boolean isPreviousButtonDisabledOnFirstPage = isFirstPageButtonActive && isPreviousButtonDisabled;
 
-        driver.findElement(By.xpath("//a[text()='Next']")).click();
+        getDriver().findElement(By.xpath("//a[text()='Next']")).click();
 
-        previousButton = driver.findElement(By.xpath("//a[text()='Previous']/.."));
-        WebElement secondPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='2']/.."));
+        previousButton = getDriver().findElement(By.xpath("//a[text()='Previous']/.."));
+        WebElement secondPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='2']/.."));
 
         isPreviousButtonDisabled = previousButton.getDomAttribute("class").contains("disabled");
         boolean isSecondPageButtonActive = secondPageButton.getDomAttribute("class").contains("active");
@@ -58,22 +37,23 @@ class NavigationTests {
 
     @Test
     void nextButtonTest() {
-        WebElement lastPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
+        getDriver().findElement(By.xpath(Constants.NAVIGATION_PAGE_PATH)).click();
+        WebElement lastPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
         lastPageButton.click();
 
-        WebElement nextButtonOnLastPage = driver.findElement(By.xpath("//a[text()='Next']/.."));
-        WebElement activePageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
+        WebElement nextButtonOnLastPage = getDriver().findElement(By.xpath("//a[text()='Next']/.."));
+        WebElement activePageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
 
         boolean nextDisabledOnLastPage = nextButtonOnLastPage.getDomAttribute("class").contains("disabled");
         boolean isLastPageActive = activePageButton.getDomAttribute("class").contains("active");
 
         boolean isNextButtonDisabledOnLastPage = isLastPageActive && nextDisabledOnLastPage;
 
-        WebElement previousButton = driver.findElement(By.xpath("//a[text()='Previous']"));
+        WebElement previousButton = getDriver().findElement(By.xpath("//a[text()='Previous']"));
         previousButton.click();
 
-        WebElement nextButtonOnSecondPage = driver.findElement(By.xpath("//a[text()='Next']/.."));
-        WebElement secondPageButton = driver.findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='2']/.."));
+        WebElement nextButtonOnSecondPage = getDriver().findElement(By.xpath("//a[text()='Next']/.."));
+        WebElement secondPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='2']/.."));
 
         boolean nextDisabledOnSecondPage = nextButtonOnSecondPage.getDomAttribute("class").contains("disabled");
         boolean isSecondPageActive = secondPageButton.getDomAttribute("class").contains("active");

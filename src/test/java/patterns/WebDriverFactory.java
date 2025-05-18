@@ -15,8 +15,6 @@ import java.net.URL;
 import java.util.Map;
 
 public class WebDriverFactory {
-    static TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
-
     public static WebDriver createWebDriver(String browser) {
         WebDriver driver = switch (Browsers.fromString(browser)) {
             case CHROME -> getChromeDriver();
@@ -30,6 +28,7 @@ public class WebDriverFactory {
 
     private static WebDriver getChromeDriver() {
         WebDriver driver;
+        TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
         String remoteUrl = testConfig.getRemoteUrl();
 
         if (remoteUrl != null) {
