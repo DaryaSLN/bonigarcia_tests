@@ -1,5 +1,6 @@
 package steps;
 
+import com.google.common.io.Files;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.codeborne.selenide.Screenshots.takeScreenShotAsFile;
 import static org.apache.commons.io.FileUtils.copyToFile;
 
 public class AllureSteps {
@@ -43,6 +45,12 @@ public class AllureSteps {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
+    @Attachment(value = "Screenshot", type = "image/png")
+    @Step("Capture screenshot with Selenide")
+    public byte[] captureScreenshotSelenide() throws IOException {
+        return Files.toByteArray(takeScreenShotAsFile());
+    }
+
     @Step("Capture screenshot (spoiler)")
     public void captureScreenshotSpoiler(WebDriver driver) {
         Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
@@ -51,5 +59,10 @@ public class AllureSteps {
     @Step("Capture screenshot (extension)")
     public void captureScreenshotSpoiler() {
         Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) BaseTest.getDriver()).getScreenshotAs(OutputType.BYTES)));
+    }
+
+    @Step("Capture screenshot with Selenide (extension)")
+    public void captureScreenshotSelenideSpoiler() throws IOException {
+        Allure.addAttachment("Screenshot", new ByteArrayInputStream(Files.toByteArray(takeScreenShotAsFile())));
     }
 }
