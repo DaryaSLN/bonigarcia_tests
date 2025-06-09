@@ -1,8 +1,6 @@
 package patterns;
 
-import config.TestPropertiesConfig;
 import constants.Browsers;
-import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -28,8 +26,9 @@ public class WebDriverFactory {
 
     private static WebDriver getChromeDriver() {
         WebDriver driver;
-        TestPropertiesConfig testConfig = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
-        String remoteUrl = testConfig.getRemoteUrl();
+        String remoteUrl = System.getenv("SELENIUM_REMOTE_URL");
+
+        System.out.println("SELENIUM_REMOTE_URL: " + remoteUrl);
 
         if (remoteUrl != null) {
             ChromeOptions options = new ChromeOptions();
