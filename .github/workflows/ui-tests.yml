@@ -17,6 +17,13 @@ jobs:
     permissions:
       contents: read
 
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        options: --shm-size 2g
+        ports:
+          - 4444:4444
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -25,7 +32,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+        # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
@@ -34,4 +41,6 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle Wrapper
+      env:
+        SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
       run: ./gradlew test
