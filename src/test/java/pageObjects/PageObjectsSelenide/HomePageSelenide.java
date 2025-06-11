@@ -5,11 +5,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class HomePageSelenide {
     @Step("Navigate to LoadingImagesPage")
     public LoadingImagesPageSelenide navigateToLoadingImagesPage() {
-        $(By.linkText(Constants.LOADING_IMAGES_PAGE_LINKTEXT)).click();
+        executeJavaScript("arguments[0].click();", $(By.linkText(Constants.LOADING_IMAGES_PAGE_LINKTEXT)));
         return new LoadingImagesPageSelenide();
     }
 }

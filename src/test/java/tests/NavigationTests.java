@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class NavigationTests extends BaseTest {
     @Test
     void previousButtonTest() {
-        getDriver().findElement(By.linkText(Constants.NAVIGATION_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.NAVIGATION_PAGE_LINKTEXT)));
         WebElement previousButton = getDriver().findElement(By.xpath("//a[text()='Previous']/.."));
         WebElement firstPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='1']/.."));
 
@@ -37,7 +37,7 @@ class NavigationTests extends BaseTest {
 
     @Test
     void nextButtonTest() {
-        getDriver().findElement(By.linkText(Constants.NAVIGATION_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.NAVIGATION_PAGE_LINKTEXT)));
         WebElement lastPageButton = getDriver().findElement(By.xpath("//a[text()='Previous']/../following-sibling::li/a[text()='3']/.."));
         lastPageButton.click();
 

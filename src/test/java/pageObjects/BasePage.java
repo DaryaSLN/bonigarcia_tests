@@ -1,6 +1,7 @@
 package pageObjects;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,7 @@ import java.time.Duration;
 public abstract class BasePage {
     private final WebDriver driver;
     private WebDriverWait wait2;
+    JavascriptExecutor js;
 
     @FindBy(className = "display-6")
     private WebElement pageTitle;
@@ -19,6 +21,7 @@ public abstract class BasePage {
     protected BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        js = (JavascriptExecutor) driver;
     }
 
     public WebDriver getDriver() {

@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BrowserAgnosticFeaturesTests extends BaseTest {
     @Test
     void infiniteScrollTest() {
-        getDriver().findElement(By.linkText(Constants.INFINITE_SCROLL_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.INFINITE_SCROLL_PAGE_LINKTEXT)));
 
         By pLocator;
         int initParagraphsNumber = 0;
@@ -49,7 +49,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void shadowDomTest() {
-        getDriver().findElement(By.linkText(Constants.SHADOW_DOM_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.SHADOW_DOM_PAGE_LINKTEXT)));
 
         WebElement content = getDriver().findElement(By.id("content"));
         SearchContext shadowRoot = content.getShadowRoot();
@@ -60,7 +60,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void cookieTest() {
-        getDriver().findElement(By.linkText(Constants.COOKIES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.COOKIES_PAGE_LINKTEXT)));
 
         WebDriver.Options options = getDriver().manage();
         Set<Cookie> cookies = options.getCookies();
@@ -98,7 +98,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void iFrameTest() {
-        getDriver().findElement(By.linkText(Constants.IFRAMES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.IFRAMES_PAGE_LINKTEXT)));
 
         WebElement iFrameElement = wait5.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.id("my-iframe"))));
         wait1.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iFrameElement));
@@ -109,7 +109,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void launchAlertDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         WebElement launchAlert = getDriver().findElement(By.id("my-alert"));
         launchAlert.click();
@@ -126,7 +126,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void acceptLaunchConfirmDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-confirm")).click();
         getDriver().switchTo().alert().accept();
@@ -137,7 +137,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void cancelLaunchConfirmDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-confirm")).click();
         getDriver().switchTo().alert().dismiss();
@@ -148,7 +148,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void acceptLaunchPromptDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-prompt")).click();
         getDriver().switchTo().alert().sendKeys("Test");
@@ -159,7 +159,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void cancelLaunchPromptDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-prompt")).click();
         getDriver().switchTo().alert().sendKeys("Test");
@@ -170,7 +170,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void saveLaunchModalDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-modal")).click();
         WebElement saveButton = getDriver().findElement(By.xpath("//button[normalize-space()='Save changes']"));
@@ -182,7 +182,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
 
     @Test
     void closeLaunchModalDialogBoxTest() {
-        getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.DIALOG_BOXES_PAGE_LINKTEXT)));
 
         getDriver().findElement(By.id("my-modal")).click();
         WebElement closeButton = getDriver().findElement(By.xpath("//button[text()='Close']"));
@@ -196,7 +196,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
     void localStorageTest() {
         WebStorage webStorage = (WebStorage) getDriver();
 
-        getDriver().findElement(By.linkText(Constants.WEB_STORAGE_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.WEB_STORAGE_PAGE_LINKTEXT)));
 
         LocalStorage localStorage = webStorage.getLocalStorage();
         getDriver().findElement(By.id("display-session")).click();
@@ -212,7 +212,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
     void storageTest() {
         WebStorage webStorage = (WebStorage) getDriver();
 
-        getDriver().findElement(By.linkText(Constants.WEB_STORAGE_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.WEB_STORAGE_PAGE_LINKTEXT)));
 
         SessionStorage sessionStorage = webStorage.getSessionStorage();
         sessionStorage.setItem("new element", "new value");

@@ -14,7 +14,7 @@ public class HomePagePlaywright {
     }
 
     public LoginFormPagePlaywright navigateToLoginFormPage() {
-        loginFormLink.click();
+        page.evaluate("element => element.click()", loginFormLink);
         return new LoginFormPagePlaywright(page);
     }
 }
