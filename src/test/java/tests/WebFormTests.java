@@ -40,7 +40,7 @@ class WebFormTests extends BaseTest {
     @BeforeEach
     void setup() {
         super.setup();
-        getDriver().findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)));
     }
 
     @Test

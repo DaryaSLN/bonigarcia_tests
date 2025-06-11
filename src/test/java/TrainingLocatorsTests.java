@@ -42,9 +42,9 @@ class TrainingLocatorsTests {
         driver = createWebDriver(testConfig.getBrowser());
         driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)).click();
 
         js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", driver.findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)));
 
         wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
     }
