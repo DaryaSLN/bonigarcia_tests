@@ -1,7 +1,6 @@
 package patterns;
 
 import constants.Browsers;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,7 +20,7 @@ public class WebDriverFactory {
             case EDGE -> new EdgeDriver();
             default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         };
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.manage().window().maximize();
         return driver;
     }
 
@@ -35,7 +34,6 @@ public class WebDriverFactory {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
             options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.setCapability("goog:loggingPrefs", Map.of("browser", "ALL"));

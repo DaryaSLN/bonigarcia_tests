@@ -10,7 +10,7 @@ public class HomePagePlaywright {
 
     public HomePagePlaywright(Page page) {
         this.page = page;
-        this.loginFormLink = page.locator("xpath=" + Constants.LOGIN_FORM_PAGE_PATH);
+        this.loginFormLink = page.locator("a:has-text('" + Constants.LOGIN_FORM_PAGE_LINKTEXT + "')");
     }
 
     public LoginFormPagePlaywright navigateToLoginFormPage() {

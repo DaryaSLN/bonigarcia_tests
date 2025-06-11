@@ -13,7 +13,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,6 +27,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static patterns.WebDriverFactory.createWebDriver;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -39,10 +39,10 @@ class TrainingLocatorsTests {
 
     @BeforeAll
     void setup() {
-        driver = new ChromeDriver();
+        driver = createWebDriver(testConfig.getBrowser());
         driver.get(testConfig.getBaseUrl());
         driver.manage().window().maximize();
-        driver.findElement(By.xpath(Constants.WEB_FORM_PAGE_PATH)).click();
+        driver.findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)).click();
 
         js = (JavascriptExecutor) driver;
 

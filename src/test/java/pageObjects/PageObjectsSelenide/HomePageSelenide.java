@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePageSelenide {
     @Step("Navigate to LoadingImagesPage")
     public LoadingImagesPageSelenide navigateToLoadingImagesPage() {
-        $(By.xpath(Constants.LOADING_IMAGES_PAGE_PATH)).click();
+        $(By.linkText(Constants.LOADING_IMAGES_PAGE_LINKTEXT)).click();
         return new LoadingImagesPageSelenide();
     }
 }

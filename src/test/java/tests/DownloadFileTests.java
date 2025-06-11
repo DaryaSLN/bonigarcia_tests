@@ -13,7 +13,7 @@ class DownloadFileTests extends BaseTest {
     @Test
     void DownloadPngFileTest() {
         File pngFile = new HomePage(getDriver())
-                .navigateToPage(Constants.DOWNLOAD_PAGE_PATH, DownloadFilesPage.class)
+                .navigateToPage(Constants.DOWNLOAD_PAGE_LINKTEXT, DownloadFilesPage.class)
                 .downloadPng();
 
         assertThat(pngFile).exists();
@@ -22,7 +22,7 @@ class DownloadFileTests extends BaseTest {
     @Test
     void DownloadPdfFileTest() {
         File pdfFile = new HomePage(getDriver())
-                .navigateToPage(Constants.DOWNLOAD_PAGE_PATH, DownloadFilesPage.class)
+                .navigateToPage(Constants.DOWNLOAD_PAGE_LINKTEXT, DownloadFilesPage.class)
                 .downloadPdf();
 
         assertThat(pdfFile).exists();

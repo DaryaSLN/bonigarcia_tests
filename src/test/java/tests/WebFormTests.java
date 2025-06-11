@@ -40,7 +40,7 @@ class WebFormTests extends BaseTest {
     @BeforeEach
     void setup() {
         super.setup();
-        getDriver().findElement(By.xpath(Constants.WEB_FORM_PAGE_PATH)).click();
+        getDriver().findElement(By.linkText(Constants.WEB_FORM_PAGE_LINKTEXT)).click();
     }
 
     @Test
