@@ -15,7 +15,7 @@ class HeaderTests extends BaseTest {
         final String expectedHeaderTitleText = "Hands-On Selenium WebDriver with Java";
 
         String actualHeaderTitleText = new HomePage(getDriver())
-                .navigateToPage(Constants.WEB_FORM_PAGE_PATH, WebFormPage.class)
+                .navigateToPage(Constants.WEB_FORM_PAGE_LINKTEXT, WebFormPage.class)
                 .getHeader()
                 .getHeaderTitleText();
 
@@ -27,7 +27,7 @@ class HeaderTests extends BaseTest {
         final String expectedHeaderDescriptionText = "Practice site";
 
         String actualHeaderDescriptionText = new HomePage(getDriver())
-                .navigateToPage(Constants.WEB_FORM_PAGE_PATH, WebFormPage.class)
+                .navigateToPage(Constants.WEB_FORM_PAGE_LINKTEXT, WebFormPage.class)
                 .getHeader()
                 .getHeaderDescriptionText();
 
@@ -41,7 +41,7 @@ class HeaderTests extends BaseTest {
         final String expectedGitHubName = "bonigarcia";
 
         HeaderComponent headerComponent = new HomePage(getDriver())
-                .navigateToPage(Constants.WEB_FORM_PAGE_PATH, WebFormPage.class)
+                .navigateToPage(Constants.WEB_FORM_PAGE_LINKTEXT, WebFormPage.class)
                 .getHeader();
 
         int actualImageWidth = headerComponent.getLogoWidth();

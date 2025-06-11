@@ -17,7 +17,7 @@ class DropdownMenuTests extends BaseTest {
     @Test
     void leftClickTest() {
         List<String> actualDropdownMenuOptions = new HomePage(getDriver())
-                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_PATH, DropdownMenuPage.class)
+                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_LINKTEXT, DropdownMenuPage.class)
                 .openLeftClickDropdown()
                 .getLeftClickDropdownMenuOptions();
 
@@ -27,7 +27,7 @@ class DropdownMenuTests extends BaseTest {
     @Test
     void rightClickTest() {
         List<String> actualDropdownMenuOptions = new HomePage(getDriver())
-                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_PATH, DropdownMenuPage.class)
+                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_LINKTEXT, DropdownMenuPage.class)
                 .openRightClickDropdown()
                 .getRightClickDropdownMenuOptions();
 
@@ -37,7 +37,7 @@ class DropdownMenuTests extends BaseTest {
     @Test
     void doubleClickTest() {
         List<String> actualDropdownMenuOptions = new HomePage(getDriver())
-                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_PATH, DropdownMenuPage.class)
+                .navigateToPage(Constants.DROPDOWN_MENU_PAGE_LINKTEXT, DropdownMenuPage.class)
                 .openDoubleClickDropdown()
                 .getDoubleClickDropdownMenuOptions();
 

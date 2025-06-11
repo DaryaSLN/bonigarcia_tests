@@ -26,7 +26,7 @@ class LoginFormTests extends BaseTest {
                 .build();
 
         String actualMessage = new HomePage(getDriver())
-                .navigateToPage(Constants.LOGIN_FORM_PAGE_PATH, LoginFormPage.class)
+                .navigateToPage(Constants.LOGIN_FORM_PAGE_LINKTEXT, LoginFormPage.class)
                 .enterUsername(loginData.getUsername())
                 .enterPassword(loginData.getPassword())
                 .clickSubmit()
@@ -54,7 +54,7 @@ class LoginFormTests extends BaseTest {
                 .build();
 
         String actualMessage = new HomePage(getDriver())
-                .navigateToPage(Constants.LOGIN_FORM_PAGE_PATH, LoginFormPage.class)
+                .navigateToPage(Constants.LOGIN_FORM_PAGE_LINKTEXT, LoginFormPage.class)
                 .enterUsername(username)
                 .enterPassword(password)
                 .clickSubmit()

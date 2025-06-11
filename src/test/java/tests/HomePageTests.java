@@ -46,32 +46,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HomePageTests extends BaseTest {
     Stream<Arguments> testData() {
         return Stream.of(
-                Arguments.of(Constants.WEB_FORM_PAGE_PATH, "web-form.html", "Web form", WebFormPage.class),
-                Arguments.of(Constants.NAVIGATION_PAGE_PATH, "navigation1.html", "Navigation example", NavigationPage.class),
-                Arguments.of(Constants.DROPDOWN_MENU_PAGE_PATH, "dropdown-menu.html", "Dropdown menu", DropdownMenuPage.class),
-                Arguments.of(Constants.MOUSE_OVER_PAGE_PATH, "mouse-over.html", "Mouse over", MouseOverPage.class),
-                Arguments.of(Constants.DRAG_AND_DROP_PAGE_PATH, "drag-and-drop.html", "Drag and drop", DragAndDropPage.class),
-                Arguments.of(Constants.DRAW_IN_CANVAS_PAGE_PATH, "draw-in-canvas.html", "Drawing in canvas", DrawingInCanvasPage.class),
-                Arguments.of(Constants.LOADING_IMAGES_PAGE_PATH, "loading-images.html", "Loading images", LoadingImagesPage.class),
-                Arguments.of(Constants.SLOW_CALCULATOR_PAGE_PATH, "slow-calculator.html", "Slow calculator", SlowCalculatorPage.class),
-                Arguments.of(Constants.LONG_PAGE_PAGE_PATH, "long-page.html", "This is a long page", LongPagePage.class),
-                Arguments.of(Constants.INFINITE_SCROLL_PAGE_PATH, "infinite-scroll.html", "Infinite scroll", InfiniteScrollPage.class),
-                Arguments.of(Constants.SHADOW_DOM_PAGE_PATH, "shadow-dom.html", "Shadow DOM", ShadowDomPage.class),
-                Arguments.of(Constants.COOKIES_PAGE_PATH, "cookies.html", "Cookies", CookiesPage.class),
-                Arguments.of(Constants.IFRAMES_PAGE_PATH, "iframes.html", "IFrame", IFramePage.class),
-                Arguments.of(Constants.DIALOG_BOXES_PAGE_PATH, "dialog-boxes.html", "Dialog boxes", DialogBoxesPage.class),
-                Arguments.of(Constants.WEB_STORAGE_PAGE_PATH, "web-storage.html", "Web storage", WebStoragePage.class),
-                Arguments.of(Constants.GEOLOCATION_PAGE_PATH, "geolocation.html", "Geolocation", GeolocationPage.class),
-                Arguments.of(Constants.NOTIFICATIONS_PAGE_PATH, "notifications.html", "Notifications", NotificationsPage.class),
-                Arguments.of(Constants.GET_USER_MEDIA_PAGE_PATH, "get-user-media.html", "Get user media", GetUserMediaPage.class),
-                Arguments.of(Constants.MULTILANGUAGE_PAGE_PATH, "multilanguage.html", "", MultilanguagePage.class),
-                Arguments.of(Constants.CONSOLE_LOGS_PAGE_PATH, "console-logs.html", "Console logs", ConsoleLogsPage.class),
-                Arguments.of(Constants.LOGIN_FORM_PAGE_PATH, "login-form.html", "Login form", LoginFormPage.class),
-                Arguments.of(Constants.LOGIN_SLOW_PAGE_PATH, "login-slow.html", "Slow login form", SlowLoginFormPage.class),
-                Arguments.of(Constants.RANDOM_CALCULATOR_PAGE_PATH, "random-calculator.html", "Random calculator", RandomCalculatorPage.class),
-                Arguments.of(Constants.DOWNLOAD_PAGE_PATH, "download.html", "Download files", DownloadFilesPage.class),
-                Arguments.of(Constants.AB_TESTING_PAGE_PATH, "ab-testing.html", "A/B Testing", ABTestingPage.class),
-                Arguments.of(Constants.DATA_TYPES_PAGE_PATH, "data-types.html", "Data types", DataTypesPage.class)
+                Arguments.of(Constants.WEB_FORM_PAGE_LINKTEXT, "web-form.html", "Web form", WebFormPage.class),
+                Arguments.of(Constants.NAVIGATION_PAGE_LINKTEXT, "navigation1.html", "Navigation example", NavigationPage.class),
+                Arguments.of(Constants.DROPDOWN_MENU_PAGE_LINKTEXT, "dropdown-menu.html", "Dropdown menu", DropdownMenuPage.class),
+                Arguments.of(Constants.MOUSE_OVER_PAGE_LINKTEXT, "mouse-over.html", "Mouse over", MouseOverPage.class),
+                Arguments.of(Constants.DRAG_AND_DROP_PAGE_LINKTEXT, "drag-and-drop.html", "Drag and drop", DragAndDropPage.class),
+                Arguments.of(Constants.DRAW_IN_CANVAS_PAGE_LINKTEXT, "draw-in-canvas.html", "Drawing in canvas", DrawingInCanvasPage.class),
+                Arguments.of(Constants.LOADING_IMAGES_PAGE_LINKTEXT, "loading-images.html", "Loading images", LoadingImagesPage.class),
+                Arguments.of(Constants.SLOW_CALCULATOR_PAGE_LINKTEXT, "slow-calculator.html", "Slow calculator", SlowCalculatorPage.class),
+                Arguments.of(Constants.LONG_PAGE_PAGE_LINKTEXT, "long-page.html", "This is a long page", LongPagePage.class),
+                Arguments.of(Constants.INFINITE_SCROLL_PAGE_LINKTEXT, "infinite-scroll.html", "Infinite scroll", InfiniteScrollPage.class),
+                Arguments.of(Constants.SHADOW_DOM_PAGE_LINKTEXT, "shadow-dom.html", "Shadow DOM", ShadowDomPage.class),
+                Arguments.of(Constants.COOKIES_PAGE_LINKTEXT, "cookies.html", "Cookies", CookiesPage.class),
+                Arguments.of(Constants.IFRAMES_PAGE_LINKTEXT, "iframes.html", "IFrame", IFramePage.class),
+                Arguments.of(Constants.DIALOG_BOXES_PAGE_LINKTEXT, "dialog-boxes.html", "Dialog boxes", DialogBoxesPage.class),
+                Arguments.of(Constants.WEB_STORAGE_PAGE_LINKTEXT, "web-storage.html", "Web storage", WebStoragePage.class),
+                Arguments.of(Constants.GEOLOCATION_PAGE_LINKTEXT, "geolocation.html", "Geolocation", GeolocationPage.class),
+                Arguments.of(Constants.NOTIFICATIONS_PAGE_LINKTEXT, "notifications.html", "Notifications", NotificationsPage.class),
+                Arguments.of(Constants.GET_USER_MEDIA_PAGE_LINKTEXT, "get-user-media.html", "Get user media", GetUserMediaPage.class),
+                Arguments.of(Constants.MULTILANGUAGE_PAGE_LINKTEXT, "multilanguage.html", "", MultilanguagePage.class),
+                Arguments.of(Constants.CONSOLE_LOGS_PAGE_LINKTEXT, "console-logs.html", "Console logs", ConsoleLogsPage.class),
+                Arguments.of(Constants.LOGIN_FORM_PAGE_LINKTEXT, "login-form.html", "Login form", LoginFormPage.class),
+                Arguments.of(Constants.LOGIN_SLOW_PAGE_LINKTEXT, "login-slow.html", "Slow login form", SlowLoginFormPage.class),
+                Arguments.of(Constants.RANDOM_CALCULATOR_PAGE_LINKTEXT, "random-calculator.html", "Random calculator", RandomCalculatorPage.class),
+                Arguments.of(Constants.DOWNLOAD_PAGE_LINKTEXT, "download.html", "Download files", DownloadFilesPage.class),
+                Arguments.of(Constants.AB_TESTING_PAGE_LINKTEXT, "ab-testing.html", "A/B Testing", ABTestingPage.class),
+                Arguments.of(Constants.DATA_TYPES_PAGE_LINKTEXT, "data-types.html", "Data types", DataTypesPage.class)
         );
     }
 
@@ -91,7 +91,7 @@ class HomePageTests extends BaseTest {
     @Test
     void frameTest() {
         FramesPage framesPage = new HomePage(getDriver())
-                .navigateToPage(Constants.FRAMES_PAGE_PATH, FramesPage.class)
+                .navigateToPage(Constants.FRAMES_PAGE_LINKTEXT, FramesPage.class)
                 .switchToFrame();
 
         String currentUrl = framesPage.getCurrentUrl();

@@ -16,7 +16,7 @@ class DragAndDropTests extends BaseTest {
     @Test
     void dragAndDropTest() {
         DragAndDropPage dragAndDropPage = new HomePage(getDriver())
-                .navigateToPage(Constants.DRAG_AND_DROP_PAGE_PATH, DragAndDropPage.class);
+                .navigateToPage(Constants.DRAG_AND_DROP_PAGE_LINKTEXT, DragAndDropPage.class);
 
         Point initialElementLocation = dragAndDropPage.getDraggableLocation();
 
