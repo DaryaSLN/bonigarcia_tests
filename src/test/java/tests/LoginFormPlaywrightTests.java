@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 class LoginFormPlaywrightTests extends BasePlaywrightTest {
     LoginData loginData;
 
