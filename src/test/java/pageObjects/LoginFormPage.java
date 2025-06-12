@@ -21,6 +21,9 @@ public class LoginFormPage extends BasePage {
     @FindBy(className = "alert")
     private WebElement resultMessage;
 
+    @FindBy(id = "success")
+    private WebElement successResultMessage;
+
     public LoginFormPage(WebDriver driver) {
         super(driver);
     }
@@ -46,5 +49,10 @@ public class LoginFormPage extends BasePage {
     @Step("Get the result message")
     public String getResultMessage() {
         return getWait2().until(ExpectedConditions.visibilityOf(resultMessage)).getText();
+    }
+
+    @Step("Get success result message")
+    public String getSuccessResultMessage() {
+        return getWait2().until(ExpectedConditions.visibilityOf(successResultMessage)).getText();
     }
 }

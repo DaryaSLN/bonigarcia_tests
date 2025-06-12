@@ -30,7 +30,7 @@ class LoginFormTests extends BaseTest {
                 .enterUsername(loginData.getUsername())
                 .enterPassword(loginData.getPassword())
                 .clickSubmit()
-                .getResultMessage();
+                .getSuccessResultMessage();
 
         assertEquals(expectedMessage, actualMessage);
     }
