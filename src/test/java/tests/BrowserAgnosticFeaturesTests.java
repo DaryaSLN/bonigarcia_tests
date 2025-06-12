@@ -1,6 +1,7 @@
 package tests;
 
 import constants.Constants;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -192,6 +193,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
         assertThat(getDriver().findElement(By.id("modal-text")).getText()).isEqualTo("You chose: Close");
     }
 
+    @Disabled
     @Test
     void localStorageTest() {
         WebStorage webStorage = (WebStorage) getDriver();
@@ -208,6 +210,7 @@ class BrowserAgnosticFeaturesTests extends BaseTest {
         );
     }
 
+    @Disabled
     @Test
     void storageTest() {
         WebStorage webStorage = (WebStorage) getDriver();

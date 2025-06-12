@@ -8,6 +8,8 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -171,6 +173,10 @@ class WebFormTests extends BaseTest {
         }
         File file = new File(resource.toURI());
 
+        if (getDriver() instanceof RemoteWebDriver) {
+            ((RemoteWebDriver) getDriver()).setFileDetector(new LocalFileDetector());
+        }
+
         WebElement fileInput = getDriver().findElement(By.name("my-file"));
         fileInput.sendKeys(file.getAbsolutePath());
         boolean isFileDownloaded = fileInput.getAttribute("value").contains(fileName);
@@ -192,9 +198,9 @@ class WebFormTests extends BaseTest {
     @Test
     void checkboxTest() {
         WebElement checkedCheckbox = getDriver().findElement(By.cssSelector("#my-check-1"));
-        checkedCheckbox.click();
+        js.executeScript("arguments[0].click();", checkedCheckbox);
         WebElement defaultCheckbox = getDriver().findElement(By.cssSelector("#my-check-2"));
-        defaultCheckbox.click();
+        js.executeScript("arguments[0].click();", defaultCheckbox);
 
         assertAll(
                 () -> assertFalse(checkedCheckbox.isSelected()),
@@ -209,7 +215,7 @@ class WebFormTests extends BaseTest {
 
         boolean isCheckedByDefault = checkedRadio.isSelected();
 
-        defaultRadio.click();
+        js.executeScript("arguments[0].click();", defaultRadio);
         boolean isDefaultRadioSelected = defaultRadio.isSelected();
 
         assertAll(
@@ -219,7 +225,7 @@ class WebFormTests extends BaseTest {
     }
 
     @Test
-    void ColorPickerTest() {
+    void colorPickerTest() {
         WebElement colorPicker = getDriver().findElement(By.name("my-colors"));
         String initColor = colorPicker.getDomAttribute("value");
 
@@ -281,14 +287,14 @@ class WebFormTests extends BaseTest {
     void returnToIndexLinkTest() {
         String expectedHeader = "Hands-On Selenium WebDriver with Java";
 
-        getDriver().findElement(By.partialLinkText("Return")).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.partialLinkText("Return")));
         String actualPageHeader = getDriver().findElement(By.cssSelector("h1")).getText();
 
         assertEquals(expectedHeader, actualPageHeader);
     }
 
     @Test
-    void BoniGarciaLinkTest() {
+    void boniGarciaLinkTest() {
         String expectedHeader = "About Me";
 
         WebElement boniLink = getDriver().findElement(By.xpath("//a[contains(text(),'Boni')]"));

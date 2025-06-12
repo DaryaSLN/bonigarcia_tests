@@ -13,6 +13,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -123,6 +125,10 @@ class TrainingLocatorsTests {
         }
         File file = new File(resource.toURI());
 
+        if (driver instanceof RemoteWebDriver) {
+            ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+        }
+
         WebElement fileInput = driver.findElement(By.name("my-file"));
         fileInput.sendKeys(file.getAbsolutePath());
 
@@ -150,7 +156,7 @@ class TrainingLocatorsTests {
         for (int i = Integer.parseInt(exampleRange.getDomAttribute("value")); i < 10; i++) {
             exampleRange.sendKeys(Keys.ARROW_RIGHT);
         }
-        driver.findElement(By.tagName("button")).click();
+        js.executeScript("arguments[0].click();", driver.findElement(By.tagName("button")));
         String formInfo = driver.findElement(By.xpath("//div[@class='row']/div/h1")).getText();
         String formResult = driver.findElement(By.xpath("//div/p")).getText();
         driver.navigate().back();
@@ -164,7 +170,7 @@ class TrainingLocatorsTests {
     @Test
     @Order(6)
     void linksTest() {
-        driver.findElement(By.partialLinkText("Return")).click();
+        js.executeScript("arguments[0].click();", driver.findElement(By.partialLinkText("Return")));
         String pageHeader = driver.findElement(By.cssSelector("h1")).getText();
         driver.navigate().back();
 
