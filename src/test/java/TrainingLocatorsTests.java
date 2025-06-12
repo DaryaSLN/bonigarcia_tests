@@ -132,10 +132,10 @@ class TrainingLocatorsTests {
         WebElement fileInput = driver.findElement(By.name("my-file"));
         fileInput.sendKeys(file.getAbsolutePath());
 
-        driver.findElement(By.cssSelector("#my-check-1")).click();
-        driver.findElement(By.cssSelector("#my-check-2")).click();
-        driver.findElement(By.cssSelector("#my-radio-1")).click();
-        driver.findElement(By.cssSelector("#my-radio-2")).click();
+        js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#my-check-1")));
+        js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#my-check-2")));
+        js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#my-radio-1")));
+        js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#my-radio-2")));
 
         assertAll(
                 () -> assertEquals(expectedSelectOptions, actualSelectOptions),

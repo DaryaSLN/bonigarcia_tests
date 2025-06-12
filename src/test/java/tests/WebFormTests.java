@@ -181,7 +181,7 @@ class WebFormTests extends BaseTest {
         fileInput.sendKeys(file.getAbsolutePath());
         boolean isFileDownloaded = fileInput.getAttribute("value").contains(fileName);
 
-        getDriver().findElement(By.xpath("//button[text()='Submit']")).click();
+        js.executeScript("arguments[0].click();", getDriver().findElement(By.xpath("//button[text()='Submit']")));
 
         String formResult = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/p")))
                 .getText();
