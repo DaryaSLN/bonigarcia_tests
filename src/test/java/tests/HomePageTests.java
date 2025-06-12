@@ -64,7 +64,7 @@ class HomePageTests extends BaseTest {
                 Arguments.of(Constants.GEOLOCATION_PAGE_LINKTEXT, "geolocation.html", "Geolocation", GeolocationPage.class),
                 Arguments.of(Constants.NOTIFICATIONS_PAGE_LINKTEXT, "notifications.html", "Notifications", NotificationsPage.class),
                 Arguments.of(Constants.GET_USER_MEDIA_PAGE_LINKTEXT, "get-user-media.html", "Get user media", GetUserMediaPage.class),
-                Arguments.of(Constants.MULTILANGUAGE_PAGE_LINKTEXT, "multilanguage.html", "", MultilanguagePage.class),
+                Arguments.of(Constants.MULTILANGUAGE_PAGE_LINKTEXT, "multilanguage.html", "Multilanguage page", MultilanguagePage.class),
                 Arguments.of(Constants.CONSOLE_LOGS_PAGE_LINKTEXT, "console-logs.html", "Console logs", ConsoleLogsPage.class),
                 Arguments.of(Constants.LOGIN_FORM_PAGE_LINKTEXT, "login-form.html", "Login form", LoginFormPage.class),
                 Arguments.of(Constants.LOGIN_SLOW_PAGE_LINKTEXT, "login-slow.html", "Slow login form", SlowLoginFormPage.class),
