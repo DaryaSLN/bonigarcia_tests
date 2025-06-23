@@ -5,8 +5,9 @@ import api.models.User;
 import api.testdata.TestData;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
@@ -16,6 +17,7 @@ public class UserController {
     private static final String USER_ENDPOINT = "user";
 
     public UserController() {
+        RestAssured.defaultParser = Parser.JSON;
         this.requestSpecification = given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
@@ -24,45 +26,38 @@ public class UserController {
     }
 
     @Step("Create default user")
-    public Response createDefaultUser() {
-        return given(this.requestSpecification)
-                .body(TestData.DEFAULT_USER)
-                .when()
-                .post(USER_ENDPOINT)
-                .andReturn();
+    public HttpResponse createDefaultUser() {
+        this.requestSpecification.body(TestData.DEFAULT_USER);
+        return new HttpResponse(given(this.requestSpecification).post(USER_ENDPOINT).then());
     }
 
     @Step("Create user")
-    public Response createUser(User user) {
-        return given(this.requestSpecification)
-                .body(user)
-                .when()
+    public HttpResponse createUser(User user) {
+        this.requestSpecification.body(user);
+        return new HttpResponse(given(this.requestSpecification)
                 .post(USER_ENDPOINT)
-                .andReturn();
+                .then());
     }
 
     @Step("Update user")
-    public Response updateUser(User user, String userName) {
-        return given(this.requestSpecification)
-                .body(user)
-                .when()
+    public HttpResponse updateUser(User user, String userName) {
+        this.requestSpecification.body(user);
+        return new HttpResponse(given(this.requestSpecification)
                 .put(USER_ENDPOINT + "/" + userName)
-                .andReturn();
+                .then());
     }
 
     @Step("Get user by username")
-    public Response getUserByUsername(String username) {
-        return given(this.requestSpecification)
-                .when()
+    public HttpResponse getUserByUsername(String username) {
+        return new HttpResponse(given(this.requestSpecification)
                 .get(USER_ENDPOINT + "/" + username)
-                .andReturn();
+                .then());
     }
 
     @Step("Delete user by username")
-    public Response deleteUserByUsername(String username) {
-        return given(this.requestSpecification)
-                .when()
+    public HttpResponse deleteUserByUsername(String username) {
+        return new HttpResponse(given(this.requestSpecification)
                 .delete(USER_ENDPOINT + "/" + username)
-                .andReturn();
+                .then());
     }
 }
