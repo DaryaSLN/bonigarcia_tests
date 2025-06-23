@@ -5,7 +5,7 @@ import api.models.User;
 public class TestData {
     public static final User DEFAULT_USER = User.builder()
             .id(123654)
-            .username("Name123654")
+            .username("Name12")
             .firstName("FName")
             .lastName("LName")
             .email("Email")
@@ -13,11 +13,9 @@ public class TestData {
             .userStatus(0)
             .build();
 
-    public static final User INVALID_USER = User.builder().build();
-
     public static final User UPDATED_USER = User.builder()
             .id(123654)
-            .username("Name123654")
+            .username("New Name12")
             .firstName("New FName")
             .lastName("New LName")
             .email("New Email")
